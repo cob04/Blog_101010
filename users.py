@@ -13,18 +13,22 @@ LOGGED_OUT = "logged out"
 
 class User:
     """A user that can make and edit comments."""
-    def __init__(self, name, role):
-        self.name = name
-        self.role = role
+    def __init__(self, username, password, role=None):
+        self.username = username
+        self._password = password
+        self.role = role or NORMAL
         self.login_status = LOGGED_OUT
         self.comments = []
 
     def __repr__(self):
         return f"User({self.name}, {self.role})"
 
-    def login(self):
-        self.login_status = LOGGED_IN
-        return "logged in"
+    def login(self, username, password):
+        if username == self.username and password == self._password:
+            self.login_status = LOGGED_IN
+            return True
+        else:
+            return False
 
     def logout(self):
         if self.login_status == LOGGED_IN:
@@ -54,5 +58,5 @@ class Moderator(User):
     def delete_comment(self, comment):
         author = comment.author
         comment_index = author.view_comments().index(comment)
-        author.view_comments().del(comment_index)
+        author.view_comments().pop(comment_index)
         return "comment deleted"

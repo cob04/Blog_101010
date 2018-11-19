@@ -8,3 +8,7 @@ class Comment:
         self.author = author
         self.message = message
         self.timestamp = datetime.datetime.utcnow()
+        self.replies = []
+
+    def add_reply(self, comment):
+        self.replies.append(comment)

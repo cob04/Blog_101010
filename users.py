@@ -47,3 +47,8 @@ class User:
         if comment in self.comments:
             comment.message = message
         return comment
+
+
+class Moderator(User):
+    """User of the role moderator."""
+    pass

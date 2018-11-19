@@ -51,4 +51,8 @@ class User:
 
 class Moderator(User):
     """User of the role moderator."""
-    pass
+    def delete_comment(self, comment):
+        author = comment.author
+        comment_index = author.view_comments().index(comment)
+        author.view_comments().del(comment_index)
+        return "comment deleted"

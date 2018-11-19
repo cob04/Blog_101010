@@ -21,12 +21,15 @@ class User:
         self.comments = []
 
     def __repr__(self):
-        return f"User({self.name}, {self.role})"
+        return f"User({self.username}, {self.role})"
+
+    def __str__(self):
+        return f"{self.username}"
 
     def login(self, username, password):
         if username == self.username and password == self._password:
             self.login_status = LOGGED_IN
-            return True
+            return self
         else:
             return False
 
@@ -38,7 +41,7 @@ class User:
 
     def create_comment(self, message):
         """Create a comment by this author."""
-        new_comment = Comment(message, self)
+        new_comment = Comment(self, message)
         self.comments.append(new_comment)
         return new_comment
 
